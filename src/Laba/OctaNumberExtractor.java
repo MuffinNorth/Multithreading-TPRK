@@ -18,6 +18,12 @@ public class OctaNumberExtractor implements Runnable{
                 }
                 System.out.println("Поток 2 - конвертирую в 10-ую сс - " + buffer + " - " + Integer.parseInt(builder.toString(), 8));
                 buffer.clear();
+                buffer.notify();
+                try {
+                    buffer.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

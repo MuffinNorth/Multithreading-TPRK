@@ -22,6 +22,14 @@ public class RandomGenerator implements Runnable{
             synchronized (buffer){
                 buffer.append(rnd.nextInt(8));
                 System.out.println("Поток 1 - генерирую число - " + buffer);
+                if(buffer.getIndex() < 0){
+                    try {
+                        buffer.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                buffer.notify();
             }
         }
     }
